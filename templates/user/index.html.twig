@@ -1,4 +1,3 @@
-{% extends 'menu.html.twig' %}
 
 {% extends 'base.html.twig' %}
 
@@ -22,7 +21,7 @@
             <tr>
                 <td>{{ user.id }}</td>
                 <td>{{ user.pseudo }}</td>
-                <td>{{ user.mdp }}</td>
+                <td>{{ user.Password }}</td>
                 <td>{{ user.mail }}</td>
                 <td>
                     <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>

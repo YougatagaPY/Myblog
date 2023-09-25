@@ -2,13 +2,18 @@
 
 namespace App\Entity;
 
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+#[UniqueEntity(fields: ['pseudo'], message: 'There is already an account with this pseudo')]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -19,7 +24,9 @@ class User
     private ?string $pseudo = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $mdp = null;
+    private ?string $password = null;
+    #[ORM\Column(type: 'json')]
+    private array $roles = [];
 
     #[ORM\Column(length: 255)]
     private ?string $mail = null;
@@ -30,6 +37,11 @@ class User
     public function __construct()
     {
         $this->lesarticles = new ArrayCollection();
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->mail;
     }
 
     public function getId(): ?int
@@ -54,14 +66,30 @@ class User
         return $this;
     }
 
-    public function getMdp(): ?string
+    public function getRoles(): array
     {
-        return $this->mdp;
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
     }
 
-    public function setMdp(string $mdp): static
+    public function setRoles(array $roles): self
     {
-        $this->mdp = $mdp;
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $mdp): static
+    {
+        $this->password = $mdp;
 
         return $this;
     }
@@ -95,6 +123,23 @@ class User
 
         return $this;
     }
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials(): void
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+
+
+
+
 
     public function removeLesarticle(Article $lesarticle): static
     {
@@ -107,4 +152,5 @@ class User
 
         return $this;
     }
+    
 }

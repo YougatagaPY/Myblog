@@ -17,8 +17,45 @@
 							<li class="nav-item active">
 								<a class="nav-link" href="{{path('app_home')}}">Home</a>
 							</li>
-							<li class="nav-item @@service"><a class="nav-link" href="{{path('app_article_show')}}">Article</a></li>
-                            <li class="nav-item @@service"><a class="nav-link" href="{{path('app_user_new')}}">user</a></li>
+							<li class="nav-item active">
+								<a class="nav-link" href="{{path('app_article_index')}}">Article</a>
+							</li>
+								<li class="nav-item active">
+								<a class="nav-link" href="{{path('app_user_index')}}">User</a>
+							</li>						
+							<li class="nav-item active">
+							 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+								<a class="nav-link" href="{{path('app_logout')}}">Logout</a>
+								{% else %}
+								<a class="nav-link" href="{{path('app_login')}}">Login</a>
+								</li>
+								<li class="nav-item active">
+							    <a class="nav-link" href="{{path('app_register')}}">Register</a>
+															</li>
+
+							 {% endif %}
+							</li>
+							{% if is_granted('ROLE_ADMIN') %}
+							</li>
+								<li class="nav-item active">
+								<a class="nav-link" href="{{path('admin')}}">AdminDash</a>
+							</li>
+							{% endif %}
+
+							<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+Categorie  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    {{ render(controller(
+        'App\\Controller\\CategorieController::ListCategorie',
+    )) }}
+  </div>
+</div>
+</div>
+
+							
+
+					
 						</ul>
 					</div>
 				</nav>

@@ -5,11 +5,13 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
+use App\Repository\CategorieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Categorie;
 
 #[Route('/article')]
 class ArticleController extends AbstractController
@@ -68,6 +70,15 @@ class ArticleController extends AbstractController
         ]);
     }
 
+    #[Route('/categorie/{id}/articles', name: 'app_article_categorie', methods: ['GET'])]
+    public function articlescategorie(ArticleRepository $articleRepository, Categorie $categorie): Response
+    {
+        return $this->render('article/index.html.twig', [
+            'articles' =>  $articleRepository -> findByCategorie($categorie),
+        ]);
+    }
+
+
     #[Route('/{id}', name: 'app_article_delete', methods: ['POST'])]
     public function delete(Request $request, Article $article, EntityManagerInterface $entityManager): Response
     {
@@ -78,4 +89,18 @@ class ArticleController extends AbstractController
 
         return $this->redirectToRoute('app_article_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    public function recentArticles($max = 3)
+    {
+        // make a database call or other logic
+        // to get the "$max" most recent articles
+        $articles = 3;
+
+        return $this->render(
+            'article/recent_list.html.twig',
+            ['articles' => $articles]
+        );
+    }
+
+
 }

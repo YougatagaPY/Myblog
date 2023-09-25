@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% include 'base.html.twig' %}
 
 <!--
  // WEBSITE: https://themefisher.com
@@ -7,128 +7,44 @@
  // GITHUB: https://github.com/themefisher/
 -->
 
-<html lang="en">
-<head>
-
-  <!-- Basic Page Needs
-  ================================================== -->
-  <meta charset="utf-8">
-  <title>Airspace | Creative Agency Bootstrap Template</title>
-
-  <!-- Mobile Specific Metas
-  ================================================== -->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="Creative Agency Bootstrap Template">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <meta name="author" content="Themefisher">
-  <meta name="generator" content="Themefisher Airspace Template v1.0">
-  <!-- Favicon -->
-  <link rel="shortcut icon" type="image/x-icon" href={{asset("images/favicon.png")}} />
+<html lang="fr">
 
 
-  <!-- bootstrap.min css -->
-  <link rel="stylesheet" href={{asset("plugins/bootstrap/bootstrap.min.css")}}>
-  <!-- Ionic Icon Css -->
-  <link rel="stylesheet" href={{asset("plugins/Ionicons/css/ionicons.min.css")}}>
-  <!-- animate.css -->
-  <link rel="stylesheet" href={{asset("plugins/animate-css/animate.css")}}>
-  <!-- Magnify Popup -->
-  <link rel="stylesheet" href={{asset("plugins/magnific-popup/magnific-popup.css")}}>
-  <!-- Slick CSS -->
-  <link rel="stylesheet" href={{asset("plugins/slick/slick.css")}}>
-  
-  <!-- Main Stylesheet -->
-  <link rel="stylesheet" href={{asset("css/style.css")}}>
 
-</head>
-
-<body id="body">
-
-<!-- Header Start -->
-<header class="navigation">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12">
-				<nav class="navbar navbar-expand-lg p-0">
-					<a class="navbar-brand" href="index.html">
-						<img src="images/logo.png" alt="Logo">
-					</a>
-
-					<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
-						<span class="ion-android-menu"></span>
-					</button>
-
-					<div class="collapse navbar-collapse ml-auto" id="navbarsExample09">
-						<ul class="navbar-nav ml-auto">
-							<li class="nav-item @@home">
-								<a class="nav-link" href="index.html">Home</a>
+<ul>
+ {% for article in articles %}
+<h3 class="post-title"><a href="blog-single.html">{{ article.titre }}</a></h3>
+					<div class="post-meta">
+						<ul>
+						<li>
+								<i class="ion-android-people"></i> By : {{article.user}}
 							</li>
-							<li class="nav-item dropdown @@portfolio">
-								<a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Portfolio <span class="ion-ios-arrow-down"></span></a>
-								<ul class="dropdown-menu" aria-labelledby="dropdown03">
-									<li><a class="dropdown-item @@portfolioFilter" href="portfolio.html">Portfolio Filter</a></li>
-									<li><a class="dropdown-item @@portfolioSingle" href="portfolio-single.html">Portfolio Single</a></li>
-
-									<li class="dropdown dropdown-submenu dropright">
-										<a class="dropdown-item dropdown-toggle" href="#!" id="dropdown0301" role="button"
-											data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sub Menu</a>
-
-										<ul class="dropdown-menu" aria-labelledby="dropdown0301">
-											<li><a class="dropdown-item" href="index.html">Submenu 01</a></li>
-											<li><a class="dropdown-item" href="index.html">Submenu 02</a></li>
-										</ul>
-									</li>
-								</ul>
+							<li>
+								<i class="ion-calendar"></i> {{ article.date ? article.date|date('Y-m-d H:i:s') : '' }}
 							</li>
-							<li class="nav-item @@service"><a class="nav-link" href="service.html">Service</a></li>
-							<li class="nav-item dropdown active">
-								<a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-toggle="dropdown" aria-haspopup="true"
-									aria-expanded="false">Blog <span class="ion-ios-arrow-down"></span></a>
-								<ul class="dropdown-menu" aria-labelledby="dropdown05">
-									<li><a class="dropdown-item active" href="blog-grid.html">Blog Grid</a></li>
-									<li><a class="dropdown-item activeSingle" href="blog-single.html">Blog Single</a></li>
-									<li><a class="dropdown-item activeRS" href="blog-right-sidebar.html">Blog Right Sidebar</a></li>
-									<li><a class="dropdown-item activeLS" href="blog-left-sidebar.html">Blog Left Sidebar</a></li>
-									<li><a class="dropdown-item activeFW" href="blog-full-width.html">Blog Full Width</a></li>
-
-									<li class="dropdown dropdown-submenu dropleft">
-										<a class="dropdown-item dropdown-toggle" href="#!" id="dropdown0501" role="button"
-											data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sub Menu</a>
-
-										<ul class="dropdown-menu" aria-labelledby="dropdown0501">
-											<li><a class="dropdown-item" href="index.html">Submenu 01</a></li>
-											<li><a class="dropdown-item" href="index.html">Submenu 02</a></li>
-										</ul>
-									</li>
-								</ul>
+							<li>
+								<i class="ion-android-people"></i> CATEGORIE : {{article.categorie}}
 							</li>
-							<li class="nav-item dropdown @@pages">
-								<a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-toggle="dropdown" aria-haspopup="true"
-									aria-expanded="false">Pages <span class="ion-ios-arrow-down"></span></a>
-								<ul class="dropdown-menu" aria-labelledby="dropdown05">
-									<li><a class="dropdown-item @@about" href="about.html">About Us</a></li>
-									<li><a class="dropdown-item @@comingSoon" href="coming-soon.html">Coming Soon</a></li>
-									<li><a class="dropdown-item @@404" href="404.html">404 Page</a></li>
-									<li><a class="dropdown-item @@faq" href="faq.html">FAQ</a></li>
-									<li><a class="dropdown-item @@pricing" href="pricing.html">Pricing Table</a></li>
-								</ul>
+							<li>
+								<a href="blog-grid.html"><i class="ion-pricetags"></i> LIFESTYLE</a>,<a href="blog-left-sidebar.html"> TRAVEL</a>, <a href="blog-right-sidebar.html">FASHION</a>
 							</li>
-							<li class="nav-item @@contact"><a class="nav-link" href="contact.html">Contact</a></li>
+
 						</ul>
 					</div>
-				</nav>
-			</div>
-		</div>
-	</div>
-</header><!-- header close -->
+					<div class="post-content">
+						<p>L{{ article.contenu }} </p>
+						<a href="blog-single.html" class="btn btn-main">Read More</a>
+					</div>
+				</div>
+				    <a href="{{ path('app_article_index') }}">back to list</a>
 
-<h1>Members</h1>
-<ul>
-    {% for article in articles %}
-        <li>{{ article.titre }}</li>
-		<li>{{article.contenu}}</li>
+    <a href="{{ path('app_article_edit', {'id': article.id}) }}">edit</a>
+
+    {{ include('article/_delete_form.html.twig') }}
     {% endfor %}
+
 </ul>
+    <a href="{{ path('article_new')}}">ADD</a>
 
 
 
