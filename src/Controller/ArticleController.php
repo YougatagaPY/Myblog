@@ -24,6 +24,8 @@ class ArticleController extends AbstractController
         ]);
     }
 
+
+
     #[Route('/new', name: 'article_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -44,6 +46,7 @@ class ArticleController extends AbstractController
         ]);
     }
 
+
     #[Route('/{id}', name: 'app_article_show', methods: ['GET'])]
     public function show(Article $article): Response
     {
@@ -51,6 +54,7 @@ class ArticleController extends AbstractController
             'article' => $article,
         ]);
     }
+
 
     #[Route('/{id}/edit', name: 'app_article_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Article $article, EntityManagerInterface $entityManager): Response
@@ -70,6 +74,8 @@ class ArticleController extends AbstractController
         ]);
     }
 
+
+
     #[Route('/categorie/{id}/articles', name: 'app_article_categorie', methods: ['GET'])]
     public function articlescategorie(ArticleRepository $articleRepository, Categorie $categorie): Response
     {
@@ -78,6 +84,7 @@ class ArticleController extends AbstractController
         ]);
     }
 
+    
 
     #[Route('/{id}', name: 'app_article_delete', methods: ['POST'])]
     public function delete(Request $request, Article $article, EntityManagerInterface $entityManager): Response
