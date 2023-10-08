@@ -16,6 +16,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Form\ArticleType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\VarDumper\VarDumper;
+
 
 
 
@@ -35,7 +37,7 @@ class SearchController extends AbstractController
     {
         $form = $this->createFormBuilder()
             ->setAction($this->generateUrl('app_leresult'))
-            ->setMethod('GET')
+            ->setMethod('POST')
             ->add('query', TextType::class, [
                 'label' => false,
                 'attr' => [
@@ -57,15 +59,25 @@ class SearchController extends AbstractController
     #[Route('/lereesult', name: 'app_leresult')]
     public function Leresult(Request $request, ArticleRepository $repo)
     {
-        $query = $request->request->get('form');
-        if($query) {
+        $formData = $request->request->get('query'); // Récupérer les données du formulaire
+        $query = $formData['query'] ?? ''; // Accéder au champ "query" dans les données du formulaire
+        $articles = [];
+        dump($query);
+        
+        if ($query) {
             $articles = $repo->ShowSeach($query);
         }
+        
         return $this->render('Search/index.html.twig', [
             'articles' => $articles
         ]);
-    
     }
+
+    
+    
+
+ 
+
 
 
 }

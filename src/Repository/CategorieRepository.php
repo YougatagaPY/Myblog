@@ -62,13 +62,19 @@ class CategorieRepository extends ServiceEntityRepository
 //    }
 
 
-    public function ShowSeach(string $term):array
-    {
-        return $this->createQueryBuilder('article')
-        ->andWhere('article.titre LIKE :searchTerm')
-        ->setParameter('searchTerm',$term)
-        ->getQuery()
-        ->getResult();
-    }
+    // public function ShowSeach(string $term):array
+    // {
+    //     return $this->createQueryBuilder('article')
+    //     ->andWhere('article.titre LIKE :searchTerm')
+    //     ->setParameter('searchTerm',$term)
+    //     ->getQuery()
+    //     ->getResult();
+    // }
+
+  
+    
+    
+    
+
 
 }

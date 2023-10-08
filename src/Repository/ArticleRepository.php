@@ -51,25 +51,60 @@ class ArticleRepository extends ServiceEntityRepository
         ;
     }
 
+    // public function findArticlesByName(string $query)
+    // {
+    //     $qb = $this->createQueryBuilder('p');
+    //     $qb
+    //         ->where(
+    //             $qb->expr()->andX(
+    //                 $qb->expr()->orX(
+    //                     $qb->expr()->like('p.title', ':query'),
+    //                     $qb->expr()->like('p.content', ':query'),
+    //                 ),
+    //                 $qb->expr()->isNotNull('p.created_at')
+    //             )
+    //         )
+    //         ->setParameter('query', '%' . $query . '%')
+    //     ;
+    //     return $qb
+    //         ->getQuery()
+    //         ->getResult();
+    // }
+
     public function findArticlesByName(string $query)
-    {
-        $qb = $this->createQueryBuilder('p');
-        $qb
-            ->where(
-                $qb->expr()->andX(
-                    $qb->expr()->orX(
-                        $qb->expr()->like('p.title', ':query'),
-                        $qb->expr()->like('p.content', ':query'),
-                    ),
-                    $qb->expr()->isNotNull('p.created_at')
-                )
+{
+    $qb = $this->createQueryBuilder('article'); 
+    $qb
+        ->where(
+            $qb->expr()->andX(
+                $qb->expr()->orX(
+                    $qb->expr()->like('article.titre', ':query'),
+                    $qb->expr()->like('article.contenu', ':query') 
+                ),
+                $qb->expr()->isNotNull('article.created_at') 
             )
-            ->setParameter('query', '%' . $query . '%')
-        ;
-        return $qb
+        )
+        ->setParameter('query', '%' . $query . '%')
+    ;
+    return $qb
+        ->getQuery()
+        ->getResult();
+}
+
+
+    public function ShowSeach(string $term): array
+    {
+        return $this->createQueryBuilder('article')
+            ->leftJoin('article.categorie', 'categorie')
+            ->where('article.titre LIKE :searchTerm')
+            ->orWhere('categorie.libelle LIKE :searchTerm')
+            ->orWhere('article.contenu LIKE :searchTerm')
+            ->setParameter('searchTerm', '%' . $term . '%')
             ->getQuery()
             ->getResult();
     }
+    
+
     
 
 //    public function findOneBySomeField($value): ?Article

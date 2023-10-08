@@ -1,0 +1,18 @@
+{% include 'base.html.twig' %}
+
+{% block content %}
+
+    <h1>Résultats de la recherche</h1>
+
+    {% if articles is not empty %}
+        <ul>
+            {% for article in articles %}
+                <li>{{ article.titre }}</li>
+                <p>Catégorie: {{ article.categorie.libelle }}</p>
+                <p>{{ article.contenu }}</p>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucun article trouvé pour cette recherche.</p>
+    {% endif %}
+{% endblock %}

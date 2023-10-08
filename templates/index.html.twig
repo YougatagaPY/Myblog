@@ -210,7 +210,7 @@
       <div class="col-md-5 col-md-offset-1">
         <div class="testimonial-carousel text-center">
           <div class="testimonial-slider owl-carousel">
-   
+                  {{ render(controller('App\\Controller\\ArticleController::recentArticles')) }}
               </div>
             </div>
           </div>
@@ -246,8 +246,8 @@
 
 <!--Scroll to top-->
 <div id="scroll-to-top" class="scroll-to-top">
-	<span class="icon ion-ios-arrow-up"></span>
-</div>
+        <span class="icon ion-ios-arrow-up"></span>
+    </div>
 
     <!-- 
     Essential Scripts

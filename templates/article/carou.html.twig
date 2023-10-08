@@ -1,13 +1,11 @@
-{% for categorie in categories %}
-<div class="col-md-5 col-md-offset-1">
-        <div class="testimonial-carousel text-center">
-          <div class="testimonial-slider owl-carousel">
-            <div>
-              <i class="ion-quote"></i>
-              <p>{{article.contenu}}</p>
-              <div class="user">
-                <img src="images/item-img1.jpg" alt="Pepole">
-                <p><span>{{article.user}}</span></p>
-              </div>
-            </div>
+{% for article in articles %}
+    <div>
+        <i class="ion-quote"></i>
+        <p>{{ article.contenu }}</p>
+        <div class="user">
+            <p><span>{{ article.titre }}</span></p>
+        </div>
+    </div>
 {% endfor %}
+
+
