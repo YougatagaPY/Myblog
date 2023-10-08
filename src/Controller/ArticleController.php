@@ -12,6 +12,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Categorie;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 #[Route('/article')]
 class ArticleController extends AbstractController
@@ -45,6 +50,7 @@ class ArticleController extends AbstractController
             'form' => $form,
         ]);
     }
+    
 
 
     #[Route('/{id}', name: 'app_article_show', methods: ['GET'])]
