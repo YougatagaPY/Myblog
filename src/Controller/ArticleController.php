@@ -3,20 +3,32 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\User;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use App\Repository\CategorieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Categorie;
+use Symfony\Component\Serializer\SerializerInterface;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Messenger\Envelope;
+use Symfony\Component\Messenger\Exception\MessageDecodingFailedException;
+use ApiPlatform\Metadata\ApiResource;
+
 
 #[Route('/article')]
 class ArticleController extends AbstractController
@@ -28,7 +40,6 @@ class ArticleController extends AbstractController
             'articles' => $articleRepository->findAll(),
         ]);
     }
-
 
 
     #[Route('/new', name: 'article_new', methods: ['GET', 'POST'])]
@@ -61,7 +72,7 @@ class ArticleController extends AbstractController
         ]);
     }
 
-
+    #[IsGranted('POST_EDIT', 'article', 'Ta pas les droits',404)]
     #[Route('/{id}/edit', name: 'app_article_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Article $article, EntityManagerInterface $entityManager): Response
     {
@@ -112,6 +123,13 @@ class ArticleController extends AbstractController
         ]);
     }
     
+
+    #[Route('article/showapi/{id}', name: 'app_showapi', methods: ['GET'])]
+    public function showapi(Article $article, SerializerInterface $serializer) : JsonResponse
+    {
+        $jsoncontenu = $serializer->serialize($article, 'json',['groups'=> ['article']]);
+        return new JsonResponse($jsoncontenu);
+    }
  
 
 

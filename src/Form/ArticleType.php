@@ -7,7 +7,6 @@ use App\Entity\Article;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use App\Repository\CategorieRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -33,7 +32,7 @@ class ArticleType extends AbstractType
                 'widget' => 'single_text',
             ])
             ->add('user')
-
+ 
         ;
     }
 

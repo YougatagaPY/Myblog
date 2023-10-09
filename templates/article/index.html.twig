@@ -26,19 +26,23 @@
 							<li>
 								<a href="blog-grid.html"><i class="ion-pricetags"></i> {{article.categorie}}</a>
 							</li>
-
 						</ul>
 					</div>
 					<div class="post-content">
 						<p>L{{ article.contenu }} </p>
-						<a href="blog-single.html" class="btn btn-main">Read More</a>
+						<a href="{{ path('app_article_show', {'id': article.id}) }}" class="btn btn-main">Read More</a>
 					</div>
 				</div>
-				    <a href="{{ path('app_article_index') }}">back to list</a>
+				<div>
+				    <a href="{{ path('app_article_index') }}"  class="btn btn-main">back to list</a>
+					    <a href="{{ path('app_showapi', {'id': article.id}) }}"  class="btn btn-main">API</a>
+										</div>
 
+
+    {% if is_granted('POST_EDIT',article) %}
     <a href="{{ path('app_article_edit', {'id': article.id}) }}">edit</a>
-
     {{ include('article/_delete_form.html.twig') }}
+		{% endif %}
     {% endfor %}
 
 </ul>
